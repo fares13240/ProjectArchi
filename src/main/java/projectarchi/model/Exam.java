@@ -1,5 +1,6 @@
 package projectarchi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class Exam {
     // Relation Many-to-One avec Course (remplace course_id par une entité Course)
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonManagedReference
     private Course course;
 
     // Relation Many-to-One avec User pour l'enseignant (teacher_id)
@@ -26,6 +28,7 @@ public class Exam {
 
     // Relation One-to-Many avec Question
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<Question> questions = new HashSet<>();
 
     // Relation Many-to-Many avec User pour les étudiants inscrits (table exam_students)
