@@ -1,24 +1,27 @@
 package projectarchi.controller;
 
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import projectarchi.dto.QuizDTO;
 import projectarchi.model.Quiz;
 import projectarchi.service.QuizService;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/quizzes")
 public class QuizController {
-
     private final QuizService quizService;
+
     public QuizController(QuizService quizService) {
         this.quizService = quizService;
     }
 
-    @GetMapping
-    public List<Quiz> getAllQuizzes() {
-        return quizService.getAllQuizzes();
+    // Endpoint DTO pour obtenir une vue synthétique des quiz
+    @GetMapping("/dto")
+    public ResponseEntity<List<QuizDTO>> getAllQuizDTOs() {
+        return ResponseEntity.ok(quizService.getAllQuizDTOs());
     }
 
     @GetMapping("/{id}")
@@ -29,8 +32,9 @@ public class QuizController {
     }
 
     @PostMapping
-    public Quiz createQuiz(@RequestBody Quiz quiz) {
-        return quizService.saveQuiz(quiz);
+    public ResponseEntity<Quiz> createQuiz(@RequestBody Quiz quiz) {
+        Quiz savedQuiz = quizService.saveQuiz(quiz);
+        return ResponseEntity.ok(savedQuiz);
     }
 
     @PutMapping("/{id}")

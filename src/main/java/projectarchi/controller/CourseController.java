@@ -2,6 +2,7 @@ package projectarchi.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projectarchi.dto.CourseDTO;
 import projectarchi.model.Course;
 import projectarchi.model.Exam;
 import projectarchi.model.User;
@@ -10,27 +11,29 @@ import projectarchi.service.ExamService;
 import projectarchi.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
-
     private final CourseService courseService;
-    private final UserService userService;
+
     private final ExamService examService;
+    private final UserService userService;
 
-
-
-    public CourseController(CourseService courseService, UserService userService, ExamService examService) {
+    public CourseController(CourseService courseService, ExamService examService, UserService userService) {
         this.courseService = courseService;
-        this.userService = userService;
         this.examService = examService;
+        this.userService = userService;
     }
 
-    @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    // Endpoint DTO pour obtenir la liste synthétique des cours
+    @GetMapping("/dto")
+    public ResponseEntity<List<CourseDTO>> getAllCourseDTOs() {
+        return ResponseEntity.ok(courseService.getAllCourseDTOs());
     }
 
     @GetMapping("/{id}")
@@ -41,8 +44,9 @@ public class CourseController {
     }
 
     @PostMapping
-    public Course createCourse(@RequestBody Course course) {
-        return courseService.saveCourse(course);
+    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        Course savedCourse = courseService.saveCourse(course);
+        return ResponseEntity.ok(savedCourse);
     }
 
     @PutMapping("/{id}")
@@ -53,6 +57,54 @@ public class CourseController {
             course.setTitle(updatedCourse.getTitle());
             course.setExams(updatedCourse.getExams());
             course.setStudents(updatedCourse.getStudents());
+            return ResponseEntity.ok(courseService.saveCourse(course));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}/title")
+    public ResponseEntity<Course> updateCourseTitle(@PathVariable Long id, @RequestBody Map<String, String> updates) {
+        Optional<Course> courseOptional = courseService.getCourseById(id);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            if (updates.containsKey("title")) {
+                course.setTitle(updates.get("title"));
+            }
+            return ResponseEntity.ok(courseService.saveCourse(course));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/exams")
+    public ResponseEntity<Course> updateCourseExams(@PathVariable Long id, @RequestBody List<Long> examIds) {
+        Optional<Course> courseOptional = courseService.getCourseById(id);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            Set<Exam> exams = examIds.stream()
+                    .map(examService::getExamById)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .collect(Collectors.toSet());
+            course.setExams(exams);
+            return ResponseEntity.ok(courseService.saveCourse(course));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/students")
+    public ResponseEntity<Course> updateCourseStudents(@PathVariable Long id, @RequestBody List<Long> studentIds) {
+        Optional<Course> courseOptional = courseService.getCourseById(id);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            Set<User> students = studentIds.stream()
+                    .map(userService::getUserById)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .collect(Collectors.toSet());
+            course.setStudents(students);
             return ResponseEntity.ok(courseService.saveCourse(course));
         } else {
             return ResponseEntity.notFound().build();
@@ -92,10 +144,9 @@ public class CourseController {
 
             courseService.saveCourse(course); // La table course_students sera mise à jour
             return ResponseEntity.ok(course);
+
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }

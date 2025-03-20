@@ -1,24 +1,27 @@
 package projectarchi.controller;
 
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import projectarchi.dto.QuestionDTO;
 import projectarchi.model.Question;
 import projectarchi.service.QuestionService;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/questions")
 public class QuestionController {
-
     private final QuestionService questionService;
+
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
-    @GetMapping
-    public List<Question> getAllQuestions() {
-        return questionService.getAllQuestions();
+    // Endpoint DTO pour obtenir une vue synthétique des questions
+    @GetMapping("/dto")
+    public ResponseEntity<List<QuestionDTO>> getAllQuestionDTOs() {
+        return ResponseEntity.ok(questionService.getAllQuestionDTOs());
     }
 
     @GetMapping("/{id}")
@@ -29,8 +32,9 @@ public class QuestionController {
     }
 
     @PostMapping
-    public Question createQuestion(@RequestBody Question question) {
-        return questionService.saveQuestion(question);
+    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
+        Question savedQuestion = questionService.saveQuestion(question);
+        return ResponseEntity.ok(savedQuestion);
     }
 
     @PutMapping("/{id}")

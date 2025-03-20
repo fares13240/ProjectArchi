@@ -1,15 +1,18 @@
 package projectarchi.service;
 
 import org.springframework.stereotype.Service;
+import projectarchi.dto.QuestionDTO;
 import projectarchi.model.Question;
 import projectarchi.repository.QuestionRepository;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
-
     private final QuestionRepository questionRepository;
+
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
@@ -28,5 +31,23 @@ public class QuestionService {
 
     public void deleteQuestion(Long id) {
         questionRepository.deleteById(id);
+    }
+
+    public QuestionDTO convertToDTO(Question question) {
+        Long quizId = null;
+        String quizTitle = null;
+        // Adaptation : Si Question a une relation vers Quiz, ajustez ici.
+        return new QuestionDTO(
+                question.getId(),
+                question.getQuestionTitle(),
+                quizId,
+                quizTitle
+        );
+    }
+
+    public List<QuestionDTO> getAllQuestionDTOs() {
+        return getAllQuestions().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 }
