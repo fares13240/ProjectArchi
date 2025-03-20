@@ -1,5 +1,6 @@
 package projectarchi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +23,7 @@ public class Question {
     // Relation Many-to-One avec Exam (question appartient à un examen)
     @ManyToOne
     @JoinColumn(name = "exam_id")
+    @JsonBackReference
     private Exam exam;
 
     public Question() {

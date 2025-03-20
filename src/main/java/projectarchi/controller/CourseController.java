@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/courses")
 public class CourseController {
     private final CourseService courseService;
+
     private final ExamService examService;
     private final UserService userService;
 
@@ -116,19 +117,34 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-    // Endpoint pour afficher la liste des étudiants inscrits et non inscrits pour un cours donné
-    @GetMapping("/{id}/students/status")
-    public ResponseEntity<Map<String, List<User>>> getStudentsStatusForCourse(@PathVariable Long id) {
-        Optional<Course> courseOptional = courseService.getCourseById(id);
-        if (courseOptional.isPresent()) {
+    @PostMapping("/{courseId}/students/{studentId}")
+    public ResponseEntity<Course> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        Optional<Course> courseOptional = courseService.getCourseById(courseId);
+        Optional<User> studentOptional = userService.getUserById(studentId);
+
+        if (courseOptional.isPresent() && studentOptional.isPresent()) {
             Course course = courseOptional.get();
-            List<User> enrolled = course.getStudents().stream().collect(Collectors.toList());
-            List<User> allStudents = userService.getAllStudents();
-            List<User> notEnrolled = allStudents.stream()
-                    .filter(student -> !course.getStudents().contains(student))
-                    .collect(Collectors.toList());
-            Map<String, List<User>> response = Map.of("enrolled", enrolled, "notEnrolled", notEnrolled);
-            return ResponseEntity.ok(response);
+            User student = studentOptional.get();
+
+            // Ajouter l'étudiant au cours
+            course.getStudents().add(student);
+            // Mettre à jour la relation bidirectionnelle
+            student.getCourses().add(course);
+
+            // Inscription automatique aux examens du cours
+            if (course.getExams() != null) {
+                for (Exam exam : course.getExams()) {
+                    exam.getExamStudents().add(student);
+                    // Mettre à jour la relation bidirectionnelle
+                    student.getExams().add(exam);
+                    // Sauvegarde ou mise à jour de l'examen (optionnel si cascade bien configuré)
+                    examService.saveExam(exam);
+                }
+            }
+
+            courseService.saveCourse(course); // La table course_students sera mise à jour
+            return ResponseEntity.ok(course);
+
         } else {
             return ResponseEntity.notFound().build();
         }
