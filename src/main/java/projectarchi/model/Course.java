@@ -1,5 +1,6 @@
 package projectarchi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Course {
 
     // Relation One-to-Many avec Exam
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Set<Exam> exams = new HashSet<>();
 
     // Relation Many-to-Many avec User pour les étudiants inscrits (table course_students)
