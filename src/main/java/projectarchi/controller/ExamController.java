@@ -1,24 +1,27 @@
 package projectarchi.controller;
 
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import projectarchi.dto.ExamDTO;
 import projectarchi.model.Exam;
 import projectarchi.service.ExamService;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/exams")
 public class ExamController {
-
     private final ExamService examService;
+
     public ExamController(ExamService examService) {
         this.examService = examService;
     }
 
-    @GetMapping
-    public List<Exam> getAllExams() {
-        return examService.getAllExams();
+    // Endpoint DTO pour obtenir une vue synthétique des examens
+    @GetMapping("/dto")
+    public ResponseEntity<List<ExamDTO>> getAllExamDTOs() {
+        return ResponseEntity.ok(examService.getAllExamDTOs());
     }
 
     @GetMapping("/{id}")
@@ -29,8 +32,9 @@ public class ExamController {
     }
 
     @PostMapping
-    public Exam createExam(@RequestBody Exam exam) {
-        return examService.saveExam(exam);
+    public ResponseEntity<Exam> createExam(@RequestBody Exam exam) {
+        Exam savedExam = examService.saveExam(exam);
+        return ResponseEntity.ok(savedExam);
     }
 
     @PutMapping("/{id}")
@@ -41,7 +45,8 @@ public class ExamController {
             exam.setExamTitle(updatedExam.getExamTitle());
             exam.setCourse(updatedExam.getCourse());
             exam.setTeacher(updatedExam.getTeacher());
-            // Pour les questions, selon ta logique, tu pourras aussi gérer leur mise à jour
+            exam.setQuestions(updatedExam.getQuestions());
+            exam.setExamStudents(updatedExam.getExamStudents());
             return ResponseEntity.ok(examService.saveExam(exam));
         } else {
             return ResponseEntity.notFound().build();

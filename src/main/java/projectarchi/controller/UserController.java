@@ -2,6 +2,7 @@ package projectarchi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import projectarchi.dto.UserDTO;
 import projectarchi.model.User;
 import projectarchi.service.UserService;
 import java.util.List;
@@ -12,13 +13,15 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDTO>> getAllUserDTOs() {
+        List<UserDTO> dtos = userService.getAllUserDTOs();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
