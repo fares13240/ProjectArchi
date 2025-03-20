@@ -29,12 +29,22 @@ public class CourseController {
         this.userService = userService;
     }
 
-    // Endpoint DTO pour obtenir la liste synthétique des cours
+    // Endpoint pour obtenir une vue synthétique de tous les cours (DTO)
     @GetMapping("/dto")
     public ResponseEntity<List<CourseDTO>> getAllCourseDTOs() {
         return ResponseEntity.ok(courseService.getAllCourseDTOs());
     }
 
+    // Endpoint pour obtenir un cours par ID sous forme de DTO
+    @GetMapping("/{id}/dto")
+    public ResponseEntity<CourseDTO> getCourseDTOById(@PathVariable Long id) {
+        Optional<Course> courseOpt = courseService.getCourseById(id);
+        return courseOpt.map(course -> ResponseEntity.ok(courseService.convertToDTO(course)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    // Endpoint classique pour obtenir l'entité Course (attention à la récursivité)
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
         Optional<Course> course = courseService.getCourseById(id);

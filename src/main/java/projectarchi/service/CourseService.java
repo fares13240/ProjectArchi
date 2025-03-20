@@ -2,6 +2,7 @@ package projectarchi.service;
 
 import org.springframework.stereotype.Service;
 import projectarchi.dto.CourseDTO;
+import projectarchi.dto.StudentSummaryDTO;
 import projectarchi.model.Course;
 import projectarchi.repository.CourseRepository;
 
@@ -37,14 +38,20 @@ public class CourseService {
     public CourseDTO convertToDTO(Course course) {
         int examCount = course.getExams() != null ? course.getExams().size() : 0;
         int enrolledCount = course.getStudents() != null ? course.getStudents().size() : 0;
-        // Adaptation : si course possède description et creationDate, sinon mettre null
+
+        List<StudentSummaryDTO> studentSummaries = course.getStudents().stream()
+                .map(student -> new StudentSummaryDTO(student.getFirstName(), student.getLastName()))
+                .collect(Collectors.toList());
+
+        // Ici, description et creationDate sont mis à null si non existants dans l'entité Course.
         return new CourseDTO(
                 course.getId(),
                 course.getTitle(),
-                null,          // description
-                null,          // creationDate
+                null, // description
+                null, // creationDate
                 examCount,
-                enrolledCount
+                enrolledCount,
+                studentSummaries
         );
     }
 
