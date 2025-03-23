@@ -1,6 +1,10 @@
 package projectarchi.dto;
 
+import projectarchi.model.Question;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class QuizDTO {
     private Long id;
@@ -9,17 +13,19 @@ public class QuizDTO {
     private int questionCount;
     private Long examId;
     private String examTitle;
+    private Set<Question> questions = new HashSet<>();
 
     public QuizDTO() {
     }
 
-    public QuizDTO(Long id, String title, LocalDateTime creationDate, int questionCount, Long examId, String examTitle) {
+    public QuizDTO(Long id, String title, LocalDateTime creationDate, int questionCount, Long examId, String examTitle, Set<Question> questions) {
         this.id = id;
         this.title = title;
         this.creationDate = creationDate;
         this.questionCount = questionCount;
         this.examId = examId;
         this.examTitle = examTitle;
+        this.questions = questions;
     }
 
     // Getters et setters
@@ -59,5 +65,13 @@ public class QuizDTO {
     }
     public void setExamTitle(String examTitle) {
         this.examTitle = examTitle;
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 }

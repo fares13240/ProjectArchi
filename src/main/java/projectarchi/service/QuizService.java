@@ -43,7 +43,8 @@ public class QuizService {
                 null, // creationDate
                 questionCount,
                 examId,
-                examTitle
+                examTitle,
+                quiz.getQuestions()
         );
     }
 
