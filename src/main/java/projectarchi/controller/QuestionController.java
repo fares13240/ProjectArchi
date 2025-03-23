@@ -50,7 +50,6 @@ public class QuestionController {
             question.setOption4(updatedQuestion.getOption4());
             question.setQuestionTitle(updatedQuestion.getQuestionTitle());
             question.setRightAnswer(updatedQuestion.getRightAnswer());
-            question.setExam(updatedQuestion.getExam());
             return ResponseEntity.ok(questionService.saveQuestion(question));
         } else {
             return ResponseEntity.notFound().build();
