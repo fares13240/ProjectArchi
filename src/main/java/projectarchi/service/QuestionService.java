@@ -36,7 +36,6 @@ public class QuestionService {
     public QuestionDTO convertToDTO(Question question) {
         Long quizId = null;
         String quizTitle = null;
-        // Adaptation : Si Question a une relation vers Quiz, ajustez ici.
         return new QuestionDTO(
                 question.getId(),
                 question.getQuestionTitle(),

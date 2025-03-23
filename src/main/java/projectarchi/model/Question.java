@@ -82,9 +82,6 @@ public class Question {
     public void setRightAnswer(int rightAnswer) {
         this.rightAnswer = rightAnswer;
     }
-    public Exam getExam() {
-        return exam;
-    }
     public void setExam(Exam exam) {
         this.exam = exam;
     }
