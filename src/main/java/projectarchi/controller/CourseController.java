@@ -143,4 +143,67 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/{courseId}/students/{studentId}")
+    public ResponseEntity<Course> addStudentToCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        Optional<Course> courseOptional = courseService.getCourseById(courseId);
+        Optional<User> studentOptional = userService.getUserById(studentId);
+
+        if (courseOptional.isPresent() && studentOptional.isPresent()) {
+            Course course = courseOptional.get();
+            User student = studentOptional.get();
+
+            if (course.getStudents().contains(student)) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            course.getStudents().add(student);
+            student.getCourses().add(course);
+
+            if (course.getExams() != null) {
+                for (Exam exam : course.getExams()) {
+                    exam.getExamStudents().add(student);
+                    student.getExams().add(exam);
+                    examService.saveExam(exam);
+                }
+            }
+
+            Course savedCourse = courseService.saveCourse(course);
+            return ResponseEntity.ok(savedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{courseId}/students/{studentId}")
+    public ResponseEntity<Course> removeStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+        Optional<Course> courseOptional = courseService.getCourseById(courseId);
+        Optional<User> studentOptional = userService.getUserById(studentId);
+
+        if (courseOptional.isPresent() && studentOptional.isPresent()) {
+            Course course = courseOptional.get();
+            User student = studentOptional.get();
+
+            if (!course.getStudents().contains(student)) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            course.getStudents().remove(student);
+            student.getCourses().remove(course);
+
+            if (course.getExams() != null) {
+                for (Exam exam : course.getExams()) {
+                    exam.getExamStudents().remove(student);
+                    student.getExams().remove(exam);
+                    examService.saveExam(exam);
+                }
+            }
+
+            Course savedCourse = courseService.saveCourse(course);
+            return ResponseEntity.ok(savedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
