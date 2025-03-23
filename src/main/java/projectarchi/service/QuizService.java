@@ -35,12 +35,12 @@ public class QuizService {
 
     public QuizDTO convertToDTO(Quiz quiz) {
         int questionCount = quiz.getQuestions() != null ? quiz.getQuestions().size() : 0;
-        Long examId = null; // Si vous avez une relation avec Exam, récupérez-la ici
-        String examTitle = null; // idem
+        Long examId = null;
+        String examTitle = null;
         return new QuizDTO(
                 quiz.getId(),
                 quiz.getTitle(),
-                null, // creationDate
+                null,
                 questionCount,
                 examId,
                 examTitle,
