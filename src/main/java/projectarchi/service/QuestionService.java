@@ -39,6 +39,13 @@ public class QuestionService {
         return new QuestionDTO(
                 question.getId(),
                 question.getQuestionTitle(),
+                question.getCategory(),
+                question.getDifficultyLevel(),
+                question.getOption1(),
+                question.getOption2(),
+                question.getOption3(),
+                question.getOption4(),
+                question.getRightAnswer(),
                 quizId,
                 quizTitle
         );
