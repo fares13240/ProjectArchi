@@ -40,15 +40,15 @@ public class CourseService {
         int enrolledCount = course.getStudents() != null ? course.getStudents().size() : 0;
 
         List<StudentSummaryDTO> studentSummaries = course.getStudents().stream()
-                .map(student -> new StudentSummaryDTO(student.getFirstName(), student.getLastName()))
+                .map(student -> new StudentSummaryDTO(student.getUserId(), student.getFirstName(), student.getLastName()))
                 .collect(Collectors.toList());
 
         // Ici, description et creationDate sont mis à null si non existants dans l'entité Course.
         return new CourseDTO(
                 course.getId(),
                 course.getTitle(),
-                null, // description
-                null, // creationDate
+                null,
+                null,
                 examCount,
                 enrolledCount,
                 studentSummaries
