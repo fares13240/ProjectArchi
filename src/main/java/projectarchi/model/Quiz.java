@@ -21,6 +21,10 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<Question> questions = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
+
     public Quiz() {
     }
 
