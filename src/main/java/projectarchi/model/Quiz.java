@@ -47,4 +47,10 @@ public class Quiz {
     public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
+    public Exam getExam() {
+        return exam;
+    }
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
 }
