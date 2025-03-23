@@ -2,8 +2,11 @@ package projectarchi.service;
 
 import org.springframework.stereotype.Service;
 import projectarchi.dto.QuestionDTO;
+import projectarchi.dto.QuizSummaryDTO;
 import projectarchi.model.Question;
+import projectarchi.model.Quiz;
 import projectarchi.repository.QuestionRepository;
+import projectarchi.repository.QuizRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final QuizRepository quizRepository;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
         this.questionRepository = questionRepository;
+        this.quizRepository = quizRepository;
     }
 
     public List<Question> getAllQuestions() {
@@ -34,8 +39,14 @@ public class QuestionService {
     }
 
     public QuestionDTO convertToDTO(Question question) {
-        Long quizId = null;
-        String quizTitle = null;
+        // Récupération de tous les quiz associés à la question
+        List<Quiz> quizzes = quizRepository.findByQuestions_Id(question.getId());
+        List<QuizSummaryDTO> quizDTOs = quizzes.stream()
+                .map(quiz -> new QuizSummaryDTO(quiz.getId(), quiz.getTitle()))
+                .collect(Collectors.toList());
+
+
+
         return new QuestionDTO(
                 question.getId(),
                 question.getQuestionTitle(),
@@ -46,8 +57,7 @@ public class QuestionService {
                 question.getOption3(),
                 question.getOption4(),
                 question.getRightAnswer(),
-                quizId,
-                quizTitle
+                quizDTOs
         );
     }
 
