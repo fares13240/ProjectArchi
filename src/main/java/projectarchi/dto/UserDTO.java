@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserDTO {
-    private Long id;  // Correspond à userId dans l'entité User
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private LocalDateTime creationDate;
-    private String role;  // "teacher" ou "student"
-    private List<String> courseTitles; // Vous pouvez stocker ici les titres des cours associés, ou autre représentation si besoin
+    private String role;
+    private List<String> courseTitles;
 
     public UserDTO() {
     }
