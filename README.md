@@ -306,7 +306,3 @@ Pour tester l'ensemble des endpoints via Postman, suivez l'ordre ci-dessous :
   - Amélioration de la gestion des relations et de la logique métier.
   - Ajout d'un ID et login pour gérer des vues Teacher/Students
   - Correction des problèmes et effets de bords sur les mises à jour (PATCH) de certaines routes.
-
----
-
-Ce README fournit une vue complète du projet et détaille la procédure pour tester tous les endpoints via Postman dans l'ordre adéquat. N'hésitez pas à l'adapter en fonction de l'évolution de votre projet.
