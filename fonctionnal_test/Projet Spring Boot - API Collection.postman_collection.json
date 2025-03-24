@@ -1,0 +1,902 @@
+{
+	"info": {
+		"_postman_id": "0d6fc5a9-5e5a-410a-bb0c-19d40b3296b8",
+		"name": "Projet Spring Boot - API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43260672"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET All Users (DTO)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/users",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/users/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"firstname\",\n    \"lastName\": \"lastname\",\n    \"email\": \"email\",\n    \"creationDate\": null,\n    \"role\": \"role\",\n    \"courseTitles\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/users",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"active\": true,\n  \"email\": \"student1@newmail.com\",\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Wonder\",\n  \"password\": \"newpass123\",\n  \"role\": \"student\",\n  \"username\": \"alicew\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/users/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/users/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exams",
+			"item": [
+				{
+					"name": "GET All Exams (DTO)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/exams/dto",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"exams",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Exam by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/exams/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"exams",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Exam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"examTitle\": \"examTitle\",\n  \"quizCount\": 0,\n  \"courseTitle\": \"courseTitle\",\n  \"questions\": [6],\n  \"examStudents\": [5,6]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/exams",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"exams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Exam",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"examTitle\": \"Examen de mathématiques\",\n  \"course\": { \"id\": 21 },\n  \"teacher\": { \"userId\": 5 },\n  \"questions\": [11]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/exams/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"exams",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Exam",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/exams/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"exams",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "GET All Questions (DTO)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/questions/dto",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"questions",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Question by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/questions/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"questions",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"questionTitle\": \"questionTitle\",\n  \"category\": \"category\",\n  \"difficultyLevel\": \"difficultyLevel\",\n  \"option1\": \"option1\",\n  \"option2\": \"option2\",\n  \"option3\": \"option3\",\n  \"option4\": \"option4\",\n  \"rightAnswer\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/questions",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"questionTitle\": \"Mise à jour de la question\",\n  \"category\": \"Finance\",\n  \"difficultyLevel\": \"Difficile\",\n  \"option1\": \"Option A modifiée\",\n  \"option2\": \"Option B\",\n  \"option3\": \"Option C\",\n  \"option4\": \"Option D\",\n  \"rightAnswer\": 1,\n  \"exam\": { \"id\": 1 }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/questions/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"questions",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/questions/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"questions",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quizzes",
+			"item": [
+				{
+					"name": "GET All Quizzes (DTO)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/quizzes/dto",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"quizzes",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Quiz by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/quizzes/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"quizzes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Quiz",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"quizTitle\",\n  \"questions\": [{ \"id\": 6 }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/quizzes",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"quizzes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Quiz",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Quiz d'économie mis à jour\",\n  \"questions\": [ { \"id\": 1 }, { \"id\": 2 } ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/quizzes/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"quizzes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Quiz",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/quizzes/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"quizzes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GET All Courses (DTO)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/dto",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Course by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Course",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"title\",\n  \"description\": \"description\",\n  \"students\": [\n    { \"userId\": 3 },\n    { \"userId\": 5 },\n    { \"userId\": 6 }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Course",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Cours d'économie avancée\",\n  \"exams\": [ { \"id\": 1 } ],\n  \"students\": [ { \"userId\": 2 }, { \"userId\": 3 } ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Update Course Title",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Nouveau titre du cours\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/title",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"title"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Course Exams",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[1, 2]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/exams",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"exams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Course Students",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[2, 3]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/students",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Course Students Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/students/status",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"students",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Students to course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/students/{id}\n\n",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"students",
+								"{id}\n\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Students from course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gestamu.ngrok.app/api/courses/{id}/students/{id}",
+							"protocol": "https",
+							"host": [
+								"gestamu",
+								"ngrok",
+								"app"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{id}",
+								"students",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
